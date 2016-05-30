@@ -29,7 +29,9 @@ public partial class EP_TRA_Level : System.Web.UI.Page
         string stage = Request.QueryString["stage"];
                            
         string Version_Name = Request.QueryString["filename"];
-             
+        
+        stage="PI1";
+        keyitem="PI Thickness (um)";
         //Response.Write(keyitem + stage + Version_Name);
         receive_Lv(Version_Name, stage, keyitem);
         HttpContext.Current.Session["Version_Name"] = Version_Name;
@@ -220,7 +222,7 @@ public partial class EP_TRA_Level : System.Web.UI.Page
         {
 
             case "Save":
-                
+               
 
                 break;
 
@@ -228,5 +230,76 @@ public partial class EP_TRA_Level : System.Web.UI.Page
 
 
         }
+    }
+    protected void but_Save_lv_Click(object sender, EventArgs e)
+    {
+        clsMySQL db = new clsMySQL();
+
+        string SpeChar = "";
+        string md = "";
+        string cate = "";
+        string key = "";
+
+        string t = "";
+        string f = "";
+
+
+        for (int i = 0; i < GridView1.Rows.Count; i++)
+        {
+            SpeChar = GridView1.Rows[i].Cells[0].Text;
+            md = GridView1.Rows[i].Cells[1].Text;
+            cate = GridView1.Rows[i].Cells[2].Text;
+            key = GridView1.Rows[i].Cells[3].Text;
+            DropDownList ddl_Lv = (DropDownList)GridView1.Rows[i].Cells[4].FindControl("Doe_Lv");
+            String insert_cap = string.Format("insert into npi_eptra_doe_lv" +
+                           "(Lv_filename,Lv_stage,Lv_SpecChar," +
+                           "Lv_Iiitems,Lv_md,Lv_cate," +
+                           "Lv_kp,Lv_TraLv)values" +
+                           "('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}')",
+                           "ver.1", "PI1",SpeChar,"PI Thickness (um)",md,
+                           cate, key,ddl_Lv.SelectedItem);
+
+
+
+           
+
+
+
+
+            try
+            {
+
+                if (db.QueryExecuteNonQuery(insert_cap) == true)
+                {
+
+                    t += Convert.ToString(i)+",";
+                }
+                else
+                {
+                    f += Convert.ToString(i) + ",";
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+
+        }
+
+
+
+
+
+
+        //string strScript = string.Format("<script language='javascript'>alert("+f+"\n"+t+");</script>");
+        //Page.ClientScript.RegisterStartupScript(this.GetType(), "onload", strScript);
+
+
+
+
+
+
     }
 }

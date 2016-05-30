@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="EP_TRA_Level.aspx.cs" Inherits="EP_TRA_Level" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true"  enableEventValidation="false" CodeFile="EP_TRA_Level.aspx.cs" Inherits="EP_TRA_Level" %>
 
 <!DOCTYPE html>
 
@@ -21,7 +21,7 @@
                 <asp:BoundField DataField="EP_Cate_KP" HeaderText="Keyparameter" />                
                 <asp:TemplateField HeaderText="Tra_Level">
                     <HeaderTemplate>                       
-                        <asp:Button ID="but_Save_lv" runat="server" Text="Save" class="blueButton button2" OnClick="butSave_Click"  CommandName="Save"/>
+                        
                     </HeaderTemplate>
                 <ItemTemplate>
                         <asp:DropDownList ID="Doe_Lv" runat="server" Width="100px">
@@ -51,6 +51,7 @@
             <SortedDescendingHeaderStyle BackColor="#00547E" />
         </asp:GridView>
         </div>
+        <asp:Button ID="but_Save_lv" runat="server"  Text="Save" class="blueButton button2"  CommandName="Save" OnClick="but_Save_lv_Click"/>
         <div style="float:right;">
             
         </div>
